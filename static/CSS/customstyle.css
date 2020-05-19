@@ -1,0 +1,50 @@
+
+
+body{
+    background: #00416A;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #E4E5E6, #00416A);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #E4E5E6, #00416A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    font-family: fantasy;
+    margin: 2%;
+
+}
+
+.bg-blue{
+    background-color:#00416A;
+}
+
+.navbar-brand{
+    color: coral;
+}
+.navbar-brand:hover{
+    color: crimson;
+}
+.nav-link {
+    color : tomato;
+    transition: ease-in-out;
+    
+}
+
+.nav-link:hover{
+    color : sienna;
+    font-weight: bold;
+}
+
+.nav-link:visited{
+    color:white 
+}
+
+.nav-link.active{
+    color:white
+}
+
+.container-fluid{
+    margin-top: 60px;
+    background:rgba(255,255,255,0.5)
+}
+
+.text-custom {
+    color: #00416A;
+}

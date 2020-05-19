@@ -140,4 +140,5 @@ cython_debug/
 migrations/
 
 !db.sqlite3
+.history/*.*
 
