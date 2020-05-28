@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from model.views import home_view
+from model.views import home_view, ResultOneViewSet, task2_view, task3_view, ResultThreeViewSet
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',home_view,name='home'),
+    path('task2/',task2_view,name='task2'),
+    path('task3/',task3_view,name='task3'),
+    path('api/get_data/res1',ResultOneViewSet.as_view({'get': 'list'}),name='res1'),
+    path('api/get_data/res2',ResultThreeViewSet.as_view({'get': 'list'}),name='res2'),
 ]

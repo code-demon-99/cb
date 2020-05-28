@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>{% block 'title' %}Info{% endblock 'title' %}
+      </title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" charset="utf-8"></script>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+  <a class="navbar-brand">Tasks Performed </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href=" {% url 'home' %} ">Task 1 <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="{% url 'task2' %}">Task 2</a>
+      <a class="nav-item nav-link" href="{% url 'task3' %}">Task 3</a>
+
+    </div>
+  </div>
+</nav>
+
+<div class="jumbotron bg-light text-dark rounded-0">
+  <h1 class="display-4 text-danger">Project for CodeBetter </h1>
+  <p class="lead">The Project is just about analysing the data taken from <a href="https://api.covid19india.org/">covid19india API </a> and show on the graph you can use the below dropdown and select a state to get the insight. </p>
+  <hr class="my-4 bg-light">
+  <p>the <a href="https://api.covid19india.org/raw_data2.json">API</a> used in the Project Covers  Data till EoD Apr 26th . so there may be some errors that may mis match the context as the data used is a bit outdated</p>
+
+  <h4> This Task</h4>
+  <p class="text-primary">{% block 'taskdes' %}the task is to get the data from api, process it and display the information about the affected male/female population. {% endblock 'taskdes' %}  </p>
+  <a class="btn btn-primary btn-lg " href="#" role="button">Learn more</a>
+</div>
+
+
+
+{% block 'content' %}
+{% endblock 'content' %}
+
+
+
+{% block 'script' %}
+<script type="text/javascript">
+
+</script>
+{% endblock  %}
+  </body>
+</html>
