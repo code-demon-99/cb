@@ -10,6 +10,14 @@
 
     <title>{% block 'title' %}Info{% endblock 'title' %}
       </title>
+      <style media="screen">
+      body{
+        font-family : lucida;
+      }
+      .navbar{
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+      </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
@@ -17,30 +25,40 @@
 
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
-  <a class="navbar-brand">Tasks Performed </a>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top  p-3 mb-5">
+  <a class="navbar-brand"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" href=" {% url 'home' %} ">Task 1 <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="{% url 'task2' %}">Task 2</a>
-      <a class="nav-item nav-link" href="{% url 'task3' %}">Task 3</a>
+  <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+    <div class="navbar-nav mx-auto">
+      <a class="nav-item nav-link text-warning text-center active mx-2"
+      title= " Here is a nice chart that states displays the affected male/ female population in a District."
+       href=" {% url 'home' %} "> Affected Male/Female<span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link text-warning text-center mx-2"
+      title= " Here is a nice radar which shows the how diffrent states that are affected in a date range."
+       href="{% url 'task2' %}">Date range Distribution</a>
+      <a class="nav-item nav-link text-warning text-center mx-2"
+       title= "Pie chart containing the contriubution of a state in spreading Covid19."
+       href="{% url 'task3' %}">Statewise Contribution</a>
 
     </div>
   </div>
 </nav>
 
-<div class="jumbotron bg-light text-dark rounded-0">
-  <h1 class="display-4 text-danger">Project for CodeBetter </h1>
-  <p class="lead">The Project is just about analysing the data taken from <a href="https://api.covid19india.org/">covid19india API </a> and show on the graph you can use the below dropdown and select a state to get the insight. </p>
+<div class="jumbotron bg-light text-dark rounded-0 mt-5 p-5">
+  <h1 class="h1" style="color:maroon;">Project for CodeBetter Internship  </h1>
   <hr class="my-4 bg-light">
-  <p>the <a href="https://api.covid19india.org/raw_data2.json">API</a> used in the Project Covers  Data till EoD Apr 26th . so there may be some errors that may mis match the context as the data used is a bit outdated</p>
+  <p class="lead">The Project is just about analysing the data taken from <a href="https://api.covid19india.org/" title="https://api.covid19india.org/">covid19india API </a> and show on the graph you can use the below dropdown and select a state to get the insight.
 
-  <h4> This Task</h4>
-  <p class="text-primary">{% block 'taskdes' %}the task is to get the data from api, process it and display the information about the affected male/female population. {% endblock 'taskdes' %}  </p>
-  <a class="btn btn-primary btn-lg " href="#" role="button">Learn more</a>
+  The <a href="https://api.covid19india.org/raw_data2.json" title="https://api.covid19india.org/raw_data2.json">API</a> used in the Project Covers Data till EoD Apr 26th. so there may be some errors that may mis match the context as the data used is a bit outdated.</p>
+
+  <h4 class= "text-primary"> About this Task</h4>
+  <p class="text-dark lead">{% block 'taskdes' %}the task is to get the data from api, process it and display the information about the affected male/female population. use the dropdown below to get the charts and information about the Districts for a particular state {% endblock 'taskdes' %}  </p>
+  <h4 class = "text-primary"> Using a Mobile Device </h4>
+  <p class="text-dark lead">
+    please use landscape mode as the charts are reletively bigger than the potrait width.
+  </p>
 </div>
 
 

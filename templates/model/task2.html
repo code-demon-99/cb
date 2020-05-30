@@ -1,11 +1,121 @@
 {% extends "base.html" %}
 {% block 'taskdes' %}
-The Task is to get the data from the api and display statewise positive count graph for a particular "date range".
-
-
+The Task is to get the data from the api and display statewise positive count graph for a particular "date range".please select dates from the month of 'April' that too in year 2020 as the covid19 started in india from this month only.
 {% endblock 'taskdes' %}
 
 
 {% block 'content' %}
-<h1>Still Working on this. </h1>
+<center>
+<div id = "alerttext" class = " text-center text-danger h5  p-2 "></div>
+</center>
+
+<div class="row  p-2">
+  <div class="col-md-2 my-5">
+    <label for="selected_date"> <strong>start Date</strong></label>
+    <input type="date" class = "btn btn-light w-100 mb-2  "id="startDate" name="">
+    <label for="selected_date"> <strong>End Date</strong></label>
+    <input type="date" class = "btn w-100 mb-2 "id="endDate" name="">
+    <button type="sumbit" name="button" class= "btn-primary btn w-100 " id ="submitdate"> get result </button>
+  </div>
+<div class="col-md-10">
+  <canvas id="myChart"></canvas>
+</div>
+</div>
+
 {% endblock 'content' %}
+
+{% block 'script' %}
+<script type="text/javascript">
+  const url= '/api/get_data/res2?format=json'
+function draw_radar(data,labels,date1,date2){
+  var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'radar',
+
+    // The data for our dataset
+    data:{
+    labels: labels,
+    datasets: [{
+      label: "Data from "+ date1+" to "+date2+".",
+        data: data,
+        backgroundColor: 'rgba(220,20,60,0.2)',
+        borderColor: 'rgba(220,20,60,1)'
+    }],
+
+
+},
+
+    // Configuration options go here
+    options : {
+      scale: {
+          angleLines: {
+              display: true
+          },
+          ticks: {
+              suggestedMin: 50,
+              suggestedMax: 100
+          }
+      }
+  }
+});
+}
+
+$(document).ready(function(){
+
+$('#submitdate').click(function(){
+
+  start_date =  new Date($('#startDate').val())
+  end_date =  new Date($('#endDate').val())
+  if (start_date > end_date){
+$('#alerttext').html("please select valid Dates")
+
+  }
+else{
+  if (start_date.getFullYear() === 2020 && end_date.getFullYear() ===2020){
+      if (start_date.getMonth() === 3 && end_date.getMonth() === 3){
+
+        $.get(url, function(data,status){
+        let test =[]
+        let state= []
+        var counts = {};
+
+          for(i=0; i<data.DateAnnounced.length;i++){
+            date = new Date(data.DateAnnounced[i])
+          //  console.log(date)
+            if (date >= start_date && date <= end_date)
+              {state.push(data.state[i])}
+
+            }
+            var result  = {};
+                        state.forEach(function(x) {
+
+               result[x] = (result[x] || 0)+1;
+});
+    labels= Object.getOwnPropertyNames(result)
+    data1= Object.values(result)
+    draw_radar(data1,labels,start_date,end_date)
+
+
+
+
+
+        })
+      }
+      else{
+        $('#alerttext').html("please make sure that you select the month as april")
+      }
+  }
+  else{
+    $('#alerttext').html('Please make sure you select 2020 as a year.')
+  }
+}
+
+
+})
+
+
+
+});
+</script>
+{% endblock 'script' %}

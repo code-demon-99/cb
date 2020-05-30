@@ -26,7 +26,7 @@ SECRET_KEY = '=ncr0hams_)*#kh(-rt&65!%j_6+v&s$$0nncyb*mj$13ei^de'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['cbcovid19.herokuapp.com']
 
 
 # Application definition
@@ -72,6 +72,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'cb.wsgi.application'
 

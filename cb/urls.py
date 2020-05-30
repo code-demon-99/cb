@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from model.views import home_view, ResultOneViewSet, task2_view, task3_view, ResultThreeViewSet
+from model.views import home_view, ResultOneViewSet, task2_view, task3_view, ResultThreeViewSet, CovidDataViewSet, ResultTwoViewSet
+from django.conf.urls import url,include
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'model_data',CovidDataViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,5 +28,9 @@ urlpatterns = [
     path('task2/',task2_view,name='task2'),
     path('task3/',task3_view,name='task3'),
     path('api/get_data/res1',ResultOneViewSet.as_view({'get': 'list'}),name='res1'),
-    path('api/get_data/res2',ResultThreeViewSet.as_view({'get': 'list'}),name='res2'),
+    path('api/get_data/res3',ResultThreeViewSet.as_view({'get': 'list'}),name='res2'),
+    path('api/get_data/res2',ResultTwoViewSet.as_view({'get': 'list'}),name='res3'),
+    url(r'^api-auth/', include('rest_framework.urls')),
+    path('api/get_data/',include(router.urls)),
+
 ]

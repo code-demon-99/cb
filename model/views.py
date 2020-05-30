@@ -3,9 +3,9 @@ import pandas as pd
 from django.views.generic import TemplateView
 from rest_framework import viewsets
 from rest_framework.response import Response
-
 import pandas as pd
-
+from . serializers import CovidDataSerializer
+from . models import CovidData
 def home_view(request):
     return render (request,'model/home.html')
 
@@ -16,6 +16,9 @@ def task3_view(request):
     return render (request,'model/task3.html')
 
 
+class CovidDataViewSet(viewsets.ModelViewSet):
+    queryset = CovidData.objects.all()
+    serializer_class = CovidDataSerializer
 
 
 class ResultOneViewSet(viewsets.ViewSet):
@@ -32,6 +35,21 @@ class ResultOneViewSet(viewsets.ViewSet):
             'female_count':list(df['FemaleCount'])
         }
         return Response(data)
+
+
+class ResultTwoViewSet(viewsets.ViewSet):
+    """
+    A simple ViewSet for listing or retrieving users.
+    """
+    def list(self, request):
+        df=pd.read_csv('static/CSV/res2.csv')
+
+        data={
+            'state':list(df['DetectedState']),
+            'DateAnnounced': list(pd.to_datetime(df['DateAnnounced']))
+        }
+        return Response(data)
+
 
 
 class ResultThreeViewSet(viewsets.ViewSet):
