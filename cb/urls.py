@@ -18,7 +18,7 @@ from django.urls import path
 from model.views import home_view, ResultOneViewSet, task2_view, task3_view, ResultThreeViewSet, CovidDataViewSet, ResultTwoViewSet
 from django.conf.urls import url,include
 from rest_framework import routers
-
+from . import views
 router = routers.DefaultRouter()
 router.register(r'model_data',CovidDataViewSet)
 
@@ -34,3 +34,5 @@ urlpatterns = [
     path('api/get_data/',include(router.urls)),
 
 ]
+handler404 = views.handler404
+handler500 = views.handler500

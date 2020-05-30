@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% block 'title' %}Task1{% endblock 'title' %}
 {% block 'content' %}
 
 <div class="row">
@@ -176,7 +176,7 @@ $('#selectState').on('change', function (e) {
 
         }
       }
-      
+
       var tab1 = document.getElementById('table1')
       create_table(tab1,labels,male_data,female_data)
 
