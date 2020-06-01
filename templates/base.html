@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <title>{% block 'title' %}Info{% endblock 'title' %}
+    <title> {% block 'title' %}Info{% endblock 'title' %}
       </title>
       <style media="screen">
       body{
@@ -17,6 +17,7 @@
       .navbar{
         background-color: rgba(0, 0, 0, 0.6);
       }
+    
       </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -26,7 +27,7 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top  p-3 mb-5">
-  <a class="navbar-brand"></a>
+  <a class="navbar-brand" href= "{% url 'home' %}"> Home </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -34,7 +35,7 @@
     <div class="navbar-nav mx-auto">
       <a class="nav-item nav-link text-warning text-center active mx-2"
       title= " Here is a nice chart that states displays the affected male/ female population in a District."
-       href=" {% url 'home' %} "> Affected Male/Female<span class="sr-only">(current)</span></a>
+       href=" {% url 'task1' %} "> Affected Male/Female<span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link text-warning text-center mx-2"
       title= " Here is a nice radar which shows the how diffrent states that are affected in a date range."
        href="{% url 'task2' %}">Date range Distribution</a>

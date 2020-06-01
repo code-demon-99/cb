@@ -1,196 +1,85 @@
 {% extends "base.html" %}
-{% block 'title' %}Task1{% endblock 'title' %}
+
+{% block 'title' %}Home{% endblock 'title' %}
+{% block 'taskdes' %}on this page i will show what the project includes that is parts of the project.
+{% endblock 'taskdes' %}
+
 {% block 'content' %}
 
-<div class="row">
-  <!-- table  -->
-  <div class="col-md-4 p-5 ">
+<div class="container py-5">
+  <h2>
+    About Project
+  </h2>
+  <p>
+    the Project is a task given to me as an internship attendee. the project is based on a recent event that is the  pandemic Covid-19. here the Data taken belongs to the API mentioned in the block above.
+    During the project i got a new experience with the programming that what else can be done using programming and the open source.
+  </p>
+  <hr>
+  <h2>
+    Technology Stack
+    </h2>
+    <p>
+      <ul>
+        <li><strong> Frontend </strong></li>
+          <ul>
+          <li>Html</li>
+          <li>CSS</li>
+          <li>JavaScript</li>
+          </ul>
+        <li> <strong>Backend</strong> </li>
+          <ul>
+            <li>Python</li>
+          </ul>
+        <li><strong>Database</strong> (not required but still a copy of data is created in it.)</li>
+          <ul>
+            <li>sqlite3</li>
+          </ul>
+        <li><strong>Frameworks</strong></li>
+        <ul>
+          <li>Django</li>
+          <li>Rest framework</li>
+          <li>bootstarp (CSS And responsive UI )</li>
+        </ul>
+        <li><strong>library</strong></li>
+        <ul >
+          <li>chart.js(for plotting the Charts.)</li>
+          <li>some python libraries</li>
+          </ul>
+      </ul>
+    </p>
+<hr>
+<h2>
+  Navigation Urls
+</h2>
+<p>
+The Project has some extra urls that some may be intrested , these are api urls.
 
-      <label for="selectstate m-2"><strong>select the state from dropdown </strong></label>
-      <select name="" id="selectState" class=" btn text-primary bg-light w-100 p-2 ">
-        <option value="Default"> select state here....</option>
-          </select>
+  <ul>
+    <li>
+      <a href="/api/get_data/res1?format=json">/api/get_data/res1</a>
+      this is used for task 1 </li>
+      <li>
+        <a href="/api/get_data/res2?format=json">/api/get_data/res2</a>
+        this is used for task 2
+      </li>
+      <li>
+        <a href="/api/get_data/res3?format=json">/api/get_data/res3</a> this is used for the task3
 
-  <table class=" m-2 table-responsive table-sm p-2 text-center table-striped table-bordered table-hover " id = 'table1'>
+      </li>
+      <li>
+        <a href="/api/get_data/model_data?format=json">/api/get_data/model_data</a> this is the data present in our db.
 
-  </table>
-      </div>
-  <!-- chart  -->
-  <div class="col-md-8  p-5">
+      </li>
 
-    <canvas id="myChart" class=".bg-light" ></canvas>
-
-  </div>
+  </ul>
+</p>
+<hr>
+<h6>
+  source code is avilable <a href="https://github.com/Demonster1999/cb.git">here</a>.
+</h6>
+<h5>In the navigation above the links to the project work is provided please go through it.</h5>
 
 </div>
 
+
 {% endblock 'content' %}
-
-
-{% block 'script' %}
-
-<script>
-let url  = '/api/get_data/res1?format=json'
-function draw_chartMF(element,male_data,female_data,labels,chartOptions){
-  var mixedChart = new Chart(element, {
-          type: 'bar',
-          data: {
-              datasets: [{
-                  label: 'Affected Male population',
-                  data: male_data,
-                  backgroundColor: '#fff70f',
-                  borderColor: '#fff70f',
-
-                },
-               {
-                  label: 'Affected Female Population',
-                  data: female_data,
-                  backgroundColor: '#ff19d9',
-                  borderColor: '#fff70f',
-                  type: 'bar'
-              }],
-              labels: labels
-          },
-
-        options:barchartOptions
-      });
-
-}
-var barchartOptions = {
-  scales: {
-    xAxes: [{
-
-      gridLines: {
-        display: false
-      },
-      scaleLabel: {
-        display: true,
-        labelString: "AffectedDistricts"
-      }
-    }],
-    yAxes: [{
-      gridLines: {
-        zeroLineColor: "green",
-        zeroLineWidth: 2
-      },
-      // ticks: {
-      //   min: 0,
-      //   max: 400,
-      //   stepSize: 20
-      // },
-      scaleLabel: {
-        display: true,
-        labelString: "Number of Males/Females"
-      }
-    }]
-  },
-  elements: {
-    rectangle: {
-      borderSkipped: 'left',
-    }
-  }
-};
-
-function uniqueArrayCreater(array){
-  var outputArray = [];
-
-         // Count variable is used to add the
-         // new unique value only once in the
-         // outputArray.
-         var count = 0;
-
-         // Start variable is used to set true
-         // if a repeated duplicate value is
-         // encontered in the output array.
-         var start = false;
-
-         for (j = 0; j < array.length; j++) {
-             for (k = 0; k < outputArray.length; k++) {
-                 if ( array[j] == outputArray[k] ) {
-                     start = true;
-                 }
-             }
-             count++;
-             if (count == 1 && start == false) {
-                 outputArray.push(array[j]);
-             }
-             start = false;
-             count = 0;
-         }
-         return outputArray
-}
-
-
-function filltheotions(element,list){
-  for(i=0;i<list.length;i++ ){
-  var opt = document.createElement("option");
-  opt.value = list[i];
-  opt.text = list[i] ;
-  element.add(opt, element.options[i+1]);
-}
-
-}
-
-function create_table(element,labels,male_data,female_data){
-  $('#table1').html('')
-  var row = element.insertRow(0);
-  var col1 = row.insertCell(0);
-    var col2 = row.insertCell(1)
-    var col3 = row.insertCell(2)
-  col1.innerHTML = "<th>Affected Districts</th>" ;
-  col2.innerHTML = "<th>Male Population(count)</th>";
-  col3.innerHTML = "<th>Female Population(count)</th>" ;
-  for(i=0;i<labels.length;i++ ){
-    var row = element.insertRow(i+1);
-    var col1 = row.insertCell(0);
-      var col2 = row.insertCell(1)
-      var col3 = row.insertCell(2)
-    col1.innerHTML = labels[i] ;
-    col2.innerHTML = male_data[i];
-    col3.innerHTML = female_data[i] ;
-
-  }
-}
-$(document).ready(function(){
-
-
-
-  $.get(url,function(data,status){
-      states = data.state
-      var sel = document.getElementById("selectState");
-      filltheotions(sel,uniqueArrayCreater(states))
-
-$('#selectState').on('change', function (e) {
-        let male_data =[]
-        let female_data=[]
-        let labels=[]
-      var valueSelected = this.value;
-
-      for (i=0;i<=data.state.length;i++){
-        if(data.state[i]==valueSelected){
-          male_data.push(data.male_count[i])
-
-          female_data.push(data.female_count[i])
-
-          labels.push(data.labels[i])
-
-        }
-      }
-
-      var tab1 = document.getElementById('table1')
-      create_table(tab1,labels,male_data,female_data)
-
-      var ctx = document.getElementById('myChart').getContext('2d');
-      draw_chartMF(ctx,male_data,female_data,labels,barchartOptions)
-
-});
-});
-
-});
-
-    </script>
-{% endblock 'script' %}
-
-
-  </body>
-</html>

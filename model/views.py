@@ -15,6 +15,9 @@ def task2_view(request):
 def task3_view(request):
     return render (request,'model/task3.html')
 
+def task1_view(request):
+    return render(request,'model/task1.html')
+
 
 class CovidDataViewSet(viewsets.ModelViewSet):
     queryset = CovidData.objects.all()

@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from model.views import home_view, ResultOneViewSet, task2_view, task3_view, ResultThreeViewSet, CovidDataViewSet, ResultTwoViewSet
+from model.views import home_view, ResultOneViewSet, task1_view, task2_view, task3_view, ResultThreeViewSet, CovidDataViewSet, ResultTwoViewSet
 from django.conf.urls import url,include
 from rest_framework import routers
 from . import views
@@ -27,6 +27,7 @@ urlpatterns = [
     path('',home_view,name='home'),
     path('task2/',task2_view,name='task2'),
     path('task3/',task3_view,name='task3'),
+    path('task1/',task1_view,name='task1'),
     path('api/get_data/res1',ResultOneViewSet.as_view({'get': 'list'}),name='res1'),
     path('api/get_data/res3',ResultThreeViewSet.as_view({'get': 'list'}),name='res2'),
     path('api/get_data/res2',ResultTwoViewSet.as_view({'get': 'list'}),name='res3'),

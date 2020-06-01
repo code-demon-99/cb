@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% block 'title' %}Task1{% endblock 'title' %}
+{% block 'content' %}
+
+<div class="container-fluid">
+      <label for="selectstate m-2"><strong>select the state from dropdown </strong></label>
+      <select name="" id="selectState" class=" btn text-primary bg-light w-100 p-2 ">
+        <option value="Default"> select state here....</option>
+          </select>
+
+    </div>
+
+<div class="container-fluid row">
+  <div class="col-md-8 ">
+    <div id= 'chartContainer'>
+      <canvas id="myChart" height="720px" class="" ></canvas>
+  </div>
+  </div>
+
+  <div class="col-md-4 p-2">
+    <table class=" m-2 table-responsive table-sm  text-center table-striped  " id = 'table1'>
+
+    </table>
+  </div>
+</div>
+
+
+
+
+
+
+  <!-- chart  -->
+
+
+
+
+
+
+
+{% endblock 'content' %}
+
+
+{% block 'script' %}
+
+<script>
+let url  = '/api/get_data/res1?format=json'
+function draw_chartMF(element,male_data,female_data,labels,chartOptions){
+
+
+  var mixedChart = new Chart(element, {
+          type: 'horizontalBar',
+          data: {
+              datasets: [{
+                  label: 'Affected Male population',
+                  data: male_data,
+                  backgroundColor: '#fff70f',
+                  borderColor: '#fff70f',
+
+                },
+               {
+                  label: 'Affected Female Population',
+                  data: female_data,
+                  backgroundColor: '#ff19d9',
+                  borderColor: '#fff70f',
+                  type: 'horizontalBar'
+              }],
+              labels: labels
+          },
+
+        options:barchartOptions
+      });
+
+}
+var barchartOptions = {
+  scales: {
+    xAxes: [{
+
+      gridLines: {
+        display: true
+      },
+      scaleLabel: {
+        display: true,
+        labelString: "No of people "
+      }
+    }],
+    yAxes: [{
+      gridLines: {
+        display: false
+      },
+
+       ticks: {
+        min: 5,
+         max: 400,
+       stepSize: 20
+       },
+      scaleLabel: {
+        display: false,
+        labelString: "Affected Districts"
+      }
+    }]
+  },
+  elements: {
+
+  },
+
+};
+
+function uniqueArrayCreater(array){
+  var outputArray = [];
+
+         // Count variable is used to add the
+         // new unique value only once in the
+         // outputArray.
+         var count = 0;
+
+         // Start variable is used to set true
+         // if a repeated duplicate value is
+         // encontered in the output array.
+         var start = false;
+
+         for (j = 0; j < array.length; j++) {
+             for (k = 0; k < outputArray.length; k++) {
+                 if ( array[j] == outputArray[k] ) {
+                     start = true;
+                 }
+             }
+             count++;
+             if (count == 1 && start == false) {
+                 outputArray.push(array[j]);
+             }
+             start = false;
+             count = 0;
+         }
+         return outputArray
+}
+
+
+function filltheotions(element,list){
+  for(i=0;i<list.length;i++ ){
+  var opt = document.createElement("option");
+  opt.value = list[i];
+  opt.text = list[i] ;
+  element.add(opt, element.options[i+1]);
+}
+
+}
+
+function create_table(element,labels,male_data,female_data){
+  $('#table1').html('')
+  var row = element.insertRow(0);
+  var col1 = row.insertCell(0);
+    var col2 = row.insertCell(1)
+    var col3 = row.insertCell(2)
+  col1.innerHTML = "<th>Affected Districts</th>" ;
+  col2.innerHTML = "<th>Male Population(count)</th>";
+  col3.innerHTML = "<th>Female Population(count)</th>" ;
+  for(i=0;i<labels.length;i++ ){
+    var row = element.insertRow(i+1);
+    var col1 = row.insertCell(0);
+      var col2 = row.insertCell(1)
+      var col3 = row.insertCell(2)
+    col1.innerHTML = labels[i] ;
+    col2.innerHTML = male_data[i];
+    col3.innerHTML = female_data[i] ;
+
+  }
+}
+$(document).ready(function(){
+
+
+
+  $.get(url,function(data,status){
+      states = data.state
+      var sel = document.getElementById("selectState");
+      filltheotions(sel,uniqueArrayCreater(states))
+
+$('#selectState').on('change', function (e) {
+        let male_data =[]
+        let female_data=[]
+        let labels=[]
+      var valueSelected = this.value;
+
+      for (i=0;i<=data.state.length;i++){
+        if(data.state[i]==valueSelected){
+          male_data.push(data.male_count[i])
+
+          female_data.push(data.female_count[i])
+
+          labels.push(data.labels[i])
+
+        }
+      }
+
+      var tab1 = document.getElementById('table1')
+      create_table(tab1,labels,male_data,female_data)
+      document.getElementById("chartContainer").innerHTML = '&nbsp;';
+      document.getElementById("chartContainer").innerHTML = '<canvas id="myChart"></canvas>';
+      var ctx = document.getElementById('myChart').getContext('2d');
+      draw_chartMF(ctx,male_data,female_data,labels,barchartOptions)
+
+});
+});
+
+});
+
+    </script>
+{% endblock 'script' %}
+
+
+  </body>
+</html>
