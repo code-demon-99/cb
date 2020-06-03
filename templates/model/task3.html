@@ -4,32 +4,36 @@
 The task is to get the data from api and create a pie chart that will state the
 positive contribution of each and every state in the country.
 {% endblock 'taskdes' %}
-{% block 'content' %}
-<div class="row">
-  <div class="col-md-8">
 
-    <canvas id="myChart"></canvas>
+{% block 'some_more' %}
+<div class="container-fluid text-center mt-5 pt-5">
 
-  </div>
-  <div class="col-md-4">
-
-  <div style="margin-top:50%">
-    <center>
     <h1 style= "background: -webkit-linear-gradient(#00008B, 	#DDA0DD);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">#SatewiseContribution</h1>
-    <blockquote style="color:#DDA0DD;" >
+    <p style="color:#DDA0DD;">
       this pie chart shows the contribution of all the states in spreading COVID19
-    </blockquote>
-    </center>
-  </div>
+    </p>
 
-  </div>
 </div>
+  <div class="row">
+
+<div class="col-md-6">
+<canvas id="myChart"></canvas>
+</div>
+<div class="col-md-6">
+  <table id="stateMap" class = "table w-100 table-hover p-5 text-center">
+
+  </table>
+</div>
+  </div>
+{% endblock 'some_more' %}
 
 
-{% endblock 'content' %}
+
+
 
 {% block 'script' %}
 <script type="text/javascript">
+
   url = "/api/get_data/res3?format=json";
   function getRandomColorHex() {
    var hex = "0123456789ABCDEF",
@@ -39,9 +43,36 @@ positive contribution of each and every state in the country.
    }
    return color;
  }
-  function create_pie_chart(labels,legend,pp){
+    function get_n_colors(n){
+      listofcolors= []
+      for (i=0;i<n;i++)
+      { listofcolors.push(getRandomColorHex())
+      }
+      return listofcolors
+    }
+
+function create_table(labels,states,colors){
+  element = document.getElementById('stateMap')
+  var row = element.insertRow(0);
+  var col1 = row.insertCell(0);
+    var col2 = row.insertCell(1)
+  col1.innerHTML = "<th>state</th>" ;
+  col2.innerHTML = "<th>state code</th>";
+  for(i=0;i<labels.length;i++ ){
+    var row = element.insertRow(i+1);
+    row.style.backgroundColor = colors[i]
+    row.style.color='#fff'
+    var col1 = row.insertCell(0);
+      var col2 = row.insertCell(1)
+
+    col1.innerHTML = states[i] ;
+    col2.innerHTML = labels[i];
+}
+}
+  function create_pie_chart(labels,legend,pp,colors){
   var ctx = document.getElementById('myChart').getContext('2d');
   var chart = new Chart(ctx, {
+
     // The type of chart we want to create
     type: 'pie',
 
@@ -50,28 +81,26 @@ positive contribution of each and every state in the country.
         labels: labels,
         datasets: [{
             label: "State Contribution in Spreading COVID19",
-            backgroundColor: [
-                              getRandomColorHex(),getRandomColorHex(),getRandomColorHex(),
-                              getRandomColorHex(),getRandomColorHex(),getRandomColorHex(),
-                              getRandomColorHex(),getRandomColorHex(),getRandomColorHex(),
-                              getRandomColorHex(),getRandomColorHex(),getRandomColorHex(),
-                              getRandomColorHex(),getRandomColorHex(),getRandomColorHex(),
-                              getRandomColorHex(),getRandomColorHex(),getRandomColorHex(),
-                              getRandomColorHex(),getRandomColorHex(),getRandomColorHex(),
-                              getRandomColorHex(),getRandomColorHex(),getRandomColorHex(),
-                              getRandomColorHex(),getRandomColorHex(),getRandomColorHex()
-                              ],
-        // borderColor: 'rgb(0, 0, 0)',
+            backgroundColor:colors,
+
+            // borderColor: 'rgb(0, 0, 0)',
             data:pp,
         }]
     },
-    legend:{
-      position:'left',
-      labels:legend,
-    },
+
 
     // Configuration options go here
-    options: {}
+    options: {
+      responsive:true,
+      legend:{
+        display:true,
+        position:'bottom',
+
+
+
+      },
+
+    }
 });
 }
 
@@ -81,7 +110,9 @@ positive contribution of each and every state in the country.
       labels = data.labels
       countp = data.count_of_people
       pp = data.percentage_people
-      create_pie_chart(labels,state,pp)
+      colors = get_n_colors(labels.length)
+      create_pie_chart(labels,state,pp,colors)
+      create_table(labels,state,colors)
 
     });
 
