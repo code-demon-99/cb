@@ -6,27 +6,18 @@ from rest_framework.response import Response
 import pandas as pd
 from . serializers import CovidDataSerializer
 from . models import CovidData
-from .model_refiner.model_refiner import ModelRefiner
+from .model_refiner.model_refiner import ModelRefiner # this is a automated module for data prep
+
 def home_view(request):
     return render (request,'model/home.html')
 
 def task2_view(request):
-    myobj= ModelRefiner()
-    if myobj.result_two() :
-        print("result_two updated")
-
     return render (request,'model/task2.html')
 
 def task3_view(request):
-    myobj= ModelRefiner()
-    if myobj.result_three() :
-        print('result_three updated')
     return render (request,'model/task3.html')
 
 def task1_view(request):
-    myobj= ModelRefiner()
-    if myobj.result_one():
-        print('result_one updated')
     return render(request,'model/task1.html')
 
 
